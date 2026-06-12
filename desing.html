@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shayona Finserve | Expert Financial & Consulting Services</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f5fa',
+                            100: '#e1ebf5',
+                            500: '#1a5b9c',
+                            800: '#0c355e',
+                            900: '#07213b', // Deep Navy
+                        },
+                        accent: {
+                            500: '#f59e0b', // Gold/Amber
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Hero Background with Overlay */
+        .hero-bg {
+            background-image: linear-gradient(to right, rgba(7, 33, 59, 0.95), rgba(7, 33, 59, 0.8)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphism for Navbar on scroll */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #f59e0b, #fbbf24);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 antialiased overflow-x-hidden bg-gray-50">
+
+    <!-- Top Bar -->
+    <div class="bg-brand-900 text-white/80 py-2 px-4 md:px-8 text-sm hidden md:flex justify-between items-center z-50 relative">
+        <div class="flex items-center space-x-6">
+            <a href="mailto:admin@shayonafinserve.com" class="flex items-center hover:text-accent-500 transition">
+                <i data-lucide="mail" class="w-4 h-4 mr-2"></i> admin@shayonafinserve.com
+            </a>
+            <a href="tel:+918866577663" class="flex items-center hover:text-accent-500 transition">
+                <i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 88665 77663
+            </a>
+        </div>
+        <div class="flex items-center space-x-4 text-xs font-medium tracking-wider uppercase">
+            <span>Ahmedabad, Gujarat</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 bg-white shadow-sm top-0 md:top-[36px]">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center group">
+                    <div class="w-10 h-10 bg-brand-900 text-white rounded-lg flex items-center justify-center font-heading font-bold text-xl mr-3 group-hover:bg-accent-500 transition-colors shadow-lg">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="font-heading font-bold text-2xl text-brand-900 leading-none">Shayona</h1>
+                        <p class="text-xs font-semibold text-accent-500 tracking-widest uppercase mt-0.5">Finserve</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 font-medium">
+                    <a href="#home" class="text-brand-900 hover:text-accent-500 transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-brand-900 transition">About</a>
+                    <a href="#services" class="text-gray-600 hover:text-brand-900 transition">Services</a>
+                    <a href="#team" class="text-gray-600 hover:text-brand-900 transition">Team</a>
+                    <a href="#contact" class="px-6 py-2.5 bg-brand-900 text-white rounded-full hover:bg-accent-500 hover:shadow-lg hover:shadow-accent-500/30 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Consult Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-brand-900 focus:outline-none">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#home" class="block px-3 py-3 text-brand-900 font-medium border-b border-gray-50">Home</a>
+                <a href="#about" class="block px-3 py-3 text-gray-600 font-medium border-b border-gray-50">About</a>
+                <a href="#services" class="block px-3 py-3 text-gray-600 font-medium border-b border-gray-50">Services</a>
+                <a href="#team" class="block px-3 py-3 text-gray-600 font-medium border-b border-gray-50">Team</a>
+                <a href="#contact" class="block px-3 py-3 text-accent-500 font-bold">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-[90vh] flex items-center pt-20 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-500/20 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-0 left-10 w-72 h-72 bg-brand-500/30 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
+            <div class="max-w-3xl fade-up">
+                <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
+                    <span class="text-white/90 text-sm font-semibold tracking-wide uppercase">Igniting Growth Through Consulting</span>
+                </div>
+                <h1 class="font-heading text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6">
+                    Your Vision, Our <br />
+                    <span class="text-gradient">Expertise.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
+                    Connecting your business goals with expert consulting and financial services. Bridging the gap to deliver real change for over a decade.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#services" class="px-8 py-4 bg-accent-500 text-white font-semibold rounded-full hover:bg-accent-600 hover:shadow-xl hover:shadow-accent-500/30 transition-all duration-300 transform hover:-translate-y-1 flex items-center">
+                        Explore Services <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 bg-white/10 text-white border border-white/30 backdrop-blur-sm font-semibold rounded-full hover:bg-white hover:text-brand-900 transition-all duration-300">
+                        Schedule Consultation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image side -->
+                <div class="relative fade-up">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Corporate Team" class="w-full h-auto object-cover transform hover:scale-105 transition duration-700">
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-8 -right-8 bg-brand-900 text-white p-8 rounded-3xl shadow-xl z-20 hidden md:block">
+                        <div class="font-heading text-5xl font-bold text-accent-500 mb-2">10+</div>
+                        <div class="text-sm font-medium uppercase tracking-wider opacity-80">Years of<br>Excellence</div>
+                    </div>
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-100 rounded-full -z-0"></div>
+                </div>
+
+                <!-- Content side -->
+                <div class="fade-up delay-100">
+                    <h4 class="text-accent-500 font-bold tracking-widest uppercase mb-3 text-sm">Our Group</h4>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-900 mb-6">Discover the Shayona Advantage</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Shayona Finserve, a name synonymous with financial expertise and unwavering dedication, has been a driving force in the realm of loans and subsidies for over a decade.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        With a team of sharp, young professionals, including Chartered Accountants, Cost and Works Accountants, MBAs, Engineers, and Lawyers, we have established a solid foundation of trust and success, serving over <strong class="text-brand-900">1000+ satisfied clients</strong>.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand-500 mr-4 shrink-0">
+                                <i data-lucide="target" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-brand-900 mb-1">Tailored Solutions</h5>
+                                <p class="text-sm text-gray-500">Customized funding & strategy.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand-500 mr-4 shrink-0">
+                                <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-brand-900 mb-1">Trusted Experts</h5>
+                                <p class="text-sm text-gray-500">CAs, MBAs & Legal minds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="inline-flex items-center text-brand-900 font-bold hover:text-accent-500 transition group">
+                        Know more about us 
+                        <span class="w-8 h-8 rounded-full bg-brand-50 group-hover:bg-accent-50 flex items-center justify-center ml-3 transition">
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-brand-50 relative">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+                <h4 class="text-accent-500 font-bold tracking-widest uppercase mb-3 text-sm">Our Expertise</h4>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-900 mb-6">Comprehensive Financial Solutions</h2>
+                <p class="text-gray-600">From strategic capital solutions to optimizing your accounts, we offer everything you need to empower your business growth under one roof.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="factory" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">MSME Loans</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Tailored financial support to help micro, small, and medium enterprises expand and thrive.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up delay-100">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="landmark" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">PMEGP & Mudra</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Expert guidance in securing government-backed loans and subsidies for your new or existing ventures.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up delay-200">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="home" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">Home Loans</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Turn your dream home into reality with hassle-free processing and competitive interest rates.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up delay-300">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="briefcase" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">Business Loans</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Flexible capital solutions designed to meet your working capital requirements and expansion plans.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="calculator" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">Accounting</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Meticulous bookkeeping and financial management to keep your business on track.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up delay-100">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="file-text" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">GST Services</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">End-to-end GST compliance, filing, and advisory services by tax professionals.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                <!-- Service Card 7 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group fade-up delay-200">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="clipboard-check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-900 mb-3">Audit Services</h3>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Comprehensive internal and statutory audits to ensure regulatory compliance and transparency.</p>
+                    <a href="#contact" class="text-sm font-semibold text-brand-500 group-hover:text-accent-500 flex items-center transition">Read More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+
+                 <!-- Service Card 8 -->
+                 <div class="bg-brand-900 p-8 rounded-2xl shadow-lg hover:-translate-y-2 transition-all duration-300 border border-brand-800 group flex flex-col justify-center items-center text-center fade-up delay-300">
+                    <h3 class="font-heading text-2xl font-bold text-white mb-4">Need Custom<br>Financial Advice?</h3>
+                    <a href="#contact" class="px-6 py-3 bg-accent-500 text-white rounded-full font-semibold hover:bg-white hover:text-brand-900 transition w-full">Let's Talk</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats / Banner Section -->
+    <section class="py-20 bg-brand-900 relative overflow-hidden">
+        <!-- Abstract graphics -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-800/50 skew-x-12 transform origin-top-right"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-brand-800/50">
+                <div class="fade-up">
+                    <div class="text-4xl md:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="1000">0</span>+</div>
+                    <div class="text-brand-100 font-medium text-sm uppercase tracking-wider">Satisfied Clients</div>
+                </div>
+                <div class="fade-up delay-100">
+                    <div class="text-4xl md:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="10">0</span>+</div>
+                    <div class="text-brand-100 font-medium text-sm uppercase tracking-wider">Years Experience</div>
+                </div>
+                <div class="fade-up delay-200">
+                    <div class="text-4xl md:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="86">0</span>%</div>
+                    <div class="text-brand-100 font-medium text-sm uppercase tracking-wider">Funding Success</div>
+                </div>
+                <div class="fade-up delay-300">
+                    <div class="text-4xl md:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="15">0</span>+</div>
+                    <div class="text-brand-100 font-medium text-sm uppercase tracking-wider">Expert Consultants</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+                <h4 class="text-accent-500 font-bold tracking-widest uppercase mb-3 text-sm">Real Voices, Real Results</h4>
+                <h2 class="font-heading text-4xl font-bold text-brand-900 mb-4">Let our clients be your roadmap</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-2xl relative fade-up">
+                    <i data-lucide="quote" class="absolute top-8 right-8 w-12 h-12 text-gray-200"></i>
+                    <p class="text-gray-600 mb-8 relative z-10 text-sm leading-relaxed">"Working with Ashish Ji and Shayona Finserve has been a game-changer. Their comprehensive suite of services, including MSME support, streamlined our processes. A trusted partner."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center text-brand-900 font-bold text-lg mr-4">PS</div>
+                        <div>
+                            <h4 class="font-bold text-brand-900">Pathik Sheth</h4>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider">Snehraj Notebooks</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-brand-900 text-white p-8 rounded-2xl relative shadow-xl transform md:-translate-y-4 fade-up delay-100">
+                    <i data-lucide="quote" class="absolute top-8 right-8 w-12 h-12 text-white/10"></i>
+                    <p class="text-white/80 mb-8 relative z-10 text-sm leading-relaxed">"Shayona Finserve has consistently demonstrated a deep understanding of our financial needs. Their unwavering support in areas like PMEGP, and GST has been invaluable."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">DD</div>
+                        <div>
+                            <h4 class="font-bold text-white">Dr. Daxesh</h4>
+                            <p class="text-xs text-brand-100 uppercase tracking-wider">SUN PHARMA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-8 rounded-2xl relative fade-up delay-200">
+                    <i data-lucide="quote" class="absolute top-8 right-8 w-12 h-12 text-gray-200"></i>
+                    <p class="text-gray-600 mb-8 relative z-10 text-sm leading-relaxed">"Our experience has been exceptionally positive. Their dedicated team assisted us in navigating complex financial landscapes, providing valuable insights."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center text-brand-900 font-bold text-lg mr-4">CP</div>
+                        <div>
+                            <h4 class="font-bold text-brand-900">Dr. Chirag Patel</h4>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider">Prime Hospital</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 bg-brand-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 fade-up">
+                <div class="max-w-2xl">
+                    <h4 class="text-accent-500 font-bold tracking-widest uppercase mb-3 text-sm">Team Shayona</h4>
+                    <h2 class="font-heading text-4xl font-bold text-brand-900 mb-4">Meet the People Who Make it Happen</h2>
+                    <p class="text-gray-600">Passionate financial experts and dedicated professionals committed to empowering your business.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Team 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-up">
+                    <div class="h-64 bg-gray-200 overflow-hidden relative">
+                        <!-- Placeholder using Unsplash for professional look -->
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Akhil Bhuva" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 filter grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                            <div class="flex space-x-3">
+                                <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-900 hover:bg-accent-500 hover:text-white transition"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center border-t border-gray-100">
+                        <h4 class="font-bold text-xl text-brand-900 mb-1">Akhil Bhuva</h4>
+                        <p class="text-sm text-accent-500 font-medium uppercase tracking-wider">Legal & Technical Dept.</p>
+                    </div>
+                </div>
+
+                <!-- Team 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-up delay-100">
+                    <div class="h-64 bg-gray-200 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jayesh Gohil" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 filter grayscale group-hover:grayscale-0">
+                         <div class="absolute inset-0 bg-gradient-to-t from-brand-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                            <div class="flex space-x-3">
+                                <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-900 hover:bg-accent-500 hover:text-white transition"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center border-t border-gray-100">
+                        <h4 class="font-bold text-xl text-brand-900 mb-1">Jayesh Gohil</h4>
+                        <p class="text-sm text-accent-500 font-medium uppercase tracking-wider">Relationship Manager</p>
+                    </div>
+                </div>
+
+                <!-- Team 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-up delay-200">
+                    <div class="h-64 bg-gray-200 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Disha Nayi" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 filter grayscale group-hover:grayscale-0">
+                         <div class="absolute inset-0 bg-gradient-to-t from-brand-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                            <div class="flex space-x-3">
+                                <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-900 hover:bg-accent-500 hover:text-white transition"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center border-t border-gray-100">
+                        <h4 class="font-bold text-xl text-brand-900 mb-1">Disha Nayi</h4>
+                        <p class="text-sm text-accent-500 font-medium uppercase tracking-wider">Accounting & GST Dept.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="bg-brand-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+                
+                <!-- Contact Info -->
+                <div class="p-10 md:p-16 md:w-5/12 text-white relative">
+                    <!-- Decor -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full"></div>
+                    <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent-500/20 rounded-tr-full blur-xl"></div>
+                    
+                    <div class="relative z-10">
+                        <h2 class="font-heading text-3xl md:text-4xl font-bold mb-6">Experience the Difference</h2>
+                        <p class="text-brand-100 mb-12">Schedule a consultation with our team now and take the first step towards financial empowerment.</p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mr-4 shrink-0 border border-white/20">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-accent-500"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-white mb-1">Visit Us</h5>
+                                    <p class="text-brand-100 text-sm leading-relaxed">516 & 517, Sahitya Arcade, Opp Shelby Hospital, Haridarshan Cross Road, Naroda, Ahmedabad - 382 330</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mr-4 shrink-0 border border-white/20">
+                                    <i data-lucide="phone" class="w-5 h-5 text-accent-500"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-white mb-1">Call Us</h5>
+                                    <p class="text-brand-100 text-sm">+91 88665 77663</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mr-4 shrink-0 border border-white/20">
+                                    <i data-lucide="mail" class="w-5 h-5 text-accent-500"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-white mb-1">Email Us</h5>
+                                    <p class="text-brand-100 text-sm">admin@shayonafinserve.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="p-10 md:p-16 md:w-7/12 bg-gray-50">
+                    <h3 class="font-heading text-2xl font-bold text-brand-900 mb-6">Send us a message</h3>
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message sent successfully! (This is a UI demo)');">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                <input type="text" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition bg-white" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition bg-white" placeholder="+91 XXXXX XXXXX" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition bg-white" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Service Required</label>
+                            <select class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition bg-white">
+                                <option>Loan Consultation</option>
+                                <option>Accounting & Bookkeeping</option>
+                                <option>GST Registration/Filing</option>
+                                <option>Business Audit</option>
+                                <option>Other Inquiry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition bg-white resize-none" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-brand-900 text-white font-bold rounded-lg hover:bg-accent-500 transition-colors shadow-lg hover:shadow-accent-500/40">
+                            Submit Inquiry
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8 border-b border-gray-800 pb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="flex items-center group mb-4">
+                        <div class="w-8 h-8 bg-white text-brand-900 rounded flex items-center justify-center font-heading font-bold text-lg mr-2">
+                            S
+                        </div>
+                        <div>
+                            <h2 class="font-heading font-bold text-xl text-white leading-none">Shayona</h2>
+                        </div>
+                    </a>
+                    <p class="text-sm text-gray-400 max-w-sm">Your Financial Compass Guiding You Through Loans, Taxes, and Beyond. Partnering for a brighter business future.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-accent-500 transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-accent-500 transition">About Us</a></li>
+                        <li><a href="#services" class="hover:text-accent-500 transition">Our Services</a></li>
+                        <li><a href="#contact" class="hover:text-accent-500 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Top Services</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="hover:text-accent-500 transition">MSME Loans</a></li>
+                        <li><a href="#services" class="hover:text-accent-500 transition">PMEGP Loans</a></li>
+                        <li><a href="#services" class="hover:text-accent-500 transition">Accounting</a></li>
+                        <li><a href="#services" class="hover:text-accent-500 transition">GST & Audit</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Shayona Consultancy. All Rights Reserved.</p>
+                <p class="mt-2 md:mt-0">Redesigned for better Web Experience</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Sticky Navbar Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('nav-scrolled', 'md:top-0');
+                navbar.classList.remove('md:top-[36px]');
+            } else {
+                navbar.classList.remove('nav-scrolled', 'md:top-0');
+                navbar.classList.add('md:top-[36px]');
+            }
+        });
+
+        // Scroll Animation Observer (Fade Up)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // If it contains a counter, animate it
+                    const counters = entry.target.querySelectorAll('.counter');
+                    if (counters.length > 0) {
+                        counters.forEach(counter => {
+                            const updateCount = () => {
+                                const target = +counter.getAttribute('data-target');
+                                const count = +counter.innerText;
+                                const speed = 200; // lower is slower
+                                const inc = target / speed;
+
+                                if (count < target) {
+                                    counter.innerText = Math.ceil(count + inc);
+                                    setTimeout(updateCount, 10);
+                                } else {
+                                    counter.innerText = target;
+                                }
+                            };
+                            updateCount();
+                        });
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach((elem) => {
+            observer.observe(elem);
+        });
+    </script>
+</body>
+</html>
